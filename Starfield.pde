@@ -4,10 +4,11 @@ void setup()
 {
 	size(800, 800);
 	starLord = new Particle[2000];
-	for (int i = 0; i < starLord.length-1; ++i) 
+	for (int i = 0; i < starLord.length-2; ++i) 
 	{
 		starLord[i] = new NormalParticle();
 	}
+	starLord[starLord.length -2] = new JumboParticle();
 	starLord[starLord.length -1] = new OddballParticle();
 }
 void draw()
@@ -69,10 +70,10 @@ interface Particle
 	
 	public void show();
 }
-class OddballParticle implements Particle
+class JumboParticle implements Particle
 {
 	double speed, direction, locationY, locationX, bigness;
-	OddballParticle()
+	JumboParticle()
 	{
 		speed = Math.random()*3;
 		direction = Math.random()*PI* 2;
@@ -99,6 +100,41 @@ class OddballParticle implements Particle
 		ellipse((float)locationX, (float)locationY, (float)bigness, (float)bigness);
 
 	}
+}
+class OddballParticle implements Particle
+{
+	double speed, direction, locationY, locationX, bigness;
+	
+	OddballParticle()
+	{
+		speed = (Math.random()*3) ;
+		direction = Math.random()*(PI * 2);
+		locationX = 400;
+		locationY = 400;
+		bigness = 2;
+
+	}
+	public void move()
+	{
+		locationX = locationX + speed;
+		locationY = locationY + Math.random() * speed;
+		 if (locationX > 800 || locationX <0) 
+		{
+			speed = -speed;
+		}
+		if ( locationY >800 || locationY <0) 
+		{
+			speed = - speed;
+		}
+	}
+	public void show()
+	{
+		fill(255, 0, 0);
+		ellipse((float)locationX, (float)locationY, (float)bigness, (float)bigness);
+		fill(255);
+
+	}
+
 }
 
 
